@@ -1,0 +1,9 @@
+.env
+.env.*
+ddbb
+ddbb/cloudbeaver
+ddbb/postgresql
+Atlas
+Website3.0
+.cursor
+.scripts
