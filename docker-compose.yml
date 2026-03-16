@@ -1,3 +1,8 @@
+# docker-compose.yml - Field Application Specialist Environment Development
+# This file is used to start the development environment for the Field Application Specialist project.
+# It starts the Nginx server, the FastAPI server and the PostgreSQL database.
+# It also starts the DBeaver server to manage the database.
+
 services:
 
   nginx:
