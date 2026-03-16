@@ -6,7 +6,7 @@ Este documento describe la configuración y el uso del entorno Docker del proyec
 
 | Servicio   | Descripción                    | Puerto | Imagen/Build              |
 |-----------|--------------------------------|--------|---------------------------|
-| **nginx** | Frontend Vue.js (Website3.0)   | 8080   | Build desde `./Website3.0` |
+| **nginx** | Frontend Vue.js (Website3.0)   | 80     | Build desde `./Website3.0` |
 | **fastapi** | API backend (Atlas)          | 8000   | Build desde `./Atlas`     |
 | **postgres** | Base de datos PostgreSQL 16  | 5432   | `postgres:16.10-alpine`   |
 | **dbeaver** | CloudBeaver (gestor BD)      | 8978   | `dbeaver/cloudbeaver:25.2.0` |
@@ -67,7 +67,7 @@ Tras `docker compose up -d`:
 
 | Aplicación   | URL                    |
 |-------------|------------------------|
-| Frontend    | http://localhost:8080  |
+| Frontend    | http://localhost       |
 | API (Atlas) | http://localhost:8000  |
 | CloudBeaver | http://localhost:8978  |
 
