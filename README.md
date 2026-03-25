@@ -1,118 +1,179 @@
-# Documentación Docker Compose — FASEnvDev
+<p align="center">
+  <img src="images/logo.png" alt="FAS AI Agent Logo" width="200" />
+</p>
 
-Este documento describe la configuración y el uso del entorno Docker del proyecto FASEnvDev (frontend Website3.0, API Atlas, PostgreSQL y CloudBeaver).
+# SaaS - Field Application Specialist AI Agent
 
-## Resumen de servicios
+En este README.md se presenta el proyecto asociado al Trabajo de Fin del Máster (TFM) en Desarrollo con Inteligencia Artificial de la escuela Big School.
+
+Este proyecto se compone de dos repositorios:
+   - [Website3.0](https://github.com/mishellramos/Website3.0)
+   - [Atlas](https://github.com/mishellramos/Atlas)
+
+En cada uno de los mismos se encuentra un fichero README.md que incluye la documentación completa y detallada con todos los puntos de la memoria del TFM que desde la escuela nos han propuesto.
+
+   - Descripción general del repositorio.
+   - Stack tecnológico utilizado.
+   - Información sobre su instalación y ejecución.
+   - Estructura del proyecto.
+   - Funcionalidades principales.
+
+Este proyecto se ha desarrollado aprendiendo y aplicando distintas tecnologías, lenguajes de programación, frameworks, diseños, arquitecturas y estructuras que, en conjunto, forman el **SaaS Field Application Specialist AI Agent**.
+
+La pregunta que seguramente se plantean es: **¿Qué hace un Field Application Specialist (FAS)?**
+
+Un **Field Application Specialist (FAS)** es un profesional que se encarga de la aplicación de soluciones técnicas *in situ*. Estas soluciones técnicas comprenden:
+
+- La **preparación y puesta a punto de los sistemas**.  
+- El **entrenamiento del personal** para la correcta manipulación de los sistemas.  
+- El **soporte técnico**, tanto *in situ* como remoto, para **troubleshooting**.  
+- La **garantía de satisfacción del cliente** mediante el correcto funcionamiento de los sistemas.
+
+El área en la que se enfoca nuestro proyecto es **entrenar nuestro Field Application Specialist AI Agent en el ámbito de Life Science**, que engloban disciplinas como Biología, Biotecnología, Bioquímica, Microbiología etc.
+
+---
+
+## Objetivos del Proyecto
+
+El objetivo principal del proyecto es **dar soporte al FAS** mediante:
+
+1. **Extracción de conocimiento técnico** de manuales y protocolos utilizando parcialmente modelos de inteligencia artificial (**LLMs**).  
+
+2. **Extracción de keywords por sección** de cada protocolo para optimizar las búsquedas y mejorar los resultados.  
+
+3. **Optimización y simplificación de archivos PDF** (y en el futuro **TXT, DOCX, etc.**) para eliminar información irrelevante en los documentos asociados.  
+
+4. **Clasificación y estandarización de documentos** mediante secciones que se transformen en **chunks**, lo que permitirá, en el futuro, crear la **base de datos de vectores de un sistema RAG**.
+
+## Alcance del Proyecto
+
+El proyecto realizado es un **Producto Mínimo Viable (MVP)** centrado en la **extracción, simplificación y clasificación del conocimiento técnico de manuales y protocolos** mediante el uso de **LLMs**.  
+
+El siguiente paso será la creación del **RAG**, que se implementará en otra fase del proyecto y no forma parte de este **TFM**.
+
+## Despliegue del proyecto en producción
+
+### Introducción
+
+En cada uno de los repositorio Website3.0 y Atlas existe un apartado sobre instalación y ejecución en local (Ver sección 3. Instalación y ejecución) orientado al desarrollo de código localmente.
+
+Se ha seleccionado **Google Cloud Platform (GCP)** como proveedor de infraestructura, desplegando la solución sobre una **máquina virtual** que actúa como entorno de ejecución aislado. El motivo principal es la capa gratuita de 300 USD / 90 días que ofrece GCP para el uso de sus servicios. Gracias a esto, se ha podido desplegar la solución en producción de forma gratuita.
+
+En el momento de la redacción de este documento **(25/03/2026)**, el crédito disponible dentro del plan gratuito se encuentra próximo a finalizar **(6 días restantes)**, por lo que el despliegue debe considerarse temporal y orientado a la validación del TFM.  
+
+Puede ocurrir que, en el momento de la corrección de este trabajo, no sea posible acceder a la IP pública para verificar el despliegue. No obstante, a lo largo del documento se aportarán evidencias que demuestran la correcta implementación y funcionamiento del sistema.
+
+Si fuese necesaria una comprobación adicional por parte del profesor encargado de la corrección, puede ponerse en contacto conmigo a través del correo electrónico **`[nombre]`mishellramosacaro@gmail.com**, y me encargaré, en un corto intervalo de tiempo, de restaurar el entorno de producción, permitiendo nuevamente el acceso a la IP pública del servidor.
+
+> Nota: Sustituir `[nombre]` por el nombre antes del punto del correo electrónico asociado a la cuenta utilizada para el acceso a la escuela.
+
+### Decisiones técnicas
+
+- Se ha decidido utilizar una maquina virtual para el despliegue de la solución, ya que es la opción más sencilla y económica para el MVP. En el futuro se podría utilizar un servicio de contenedores como Google Cloud Run por cada uno de los servicios de la aplicación.
+
+- Se ha decidido utilizar Docker Compose para el despliegue de la solución, ya que es la herramienta más sencilla para el despliegue de contenedores y la orquestación de los mismos.
+
+
+### Servicios desplegados en producción
+
+Para poder realizar el despliegue en producción, se instaló previamente **Docker** y **Docker Compose** en el servidor. (Ver [Docker](https://docs.docker.com/get-docker/) y [Docker Compose](https://docs.docker.com/compose/install/)).
+
+También es necesario clonar cada uno de los repositorios mediante `git clone <url_del_repositorio>` , ya que, cada archivo Dockerfile que se encuentra en el mismo, copia el código en cada contenedor junto con las variables de entorno requeridas para la correcta creación y ejecución de los contenedores
+Para mayor facilidad en el despliegue, se ha creado un script (code.sh) en la raíz de este repositorio que se encarga de clonar los repositorios.
+
+Los servicios desplegados son los siguientes:
 
 | Servicio   | Descripción                    | Puerto | Imagen/Build              |
 |-----------|--------------------------------|--------|---------------------------|
-| **nginx** | Frontend Vue.js (Website3.0)   | 80     | Build desde `./Website3.0` |
-| **fastapi** | API backend (Atlas)          | 8000   | Build desde `./Atlas`     |
-| **postgres** | Base de datos PostgreSQL 16  | 5432   | `postgres:16.10-alpine`   |
-| **dbeaver** | CloudBeaver (gestor BD)      | 8978   | `dbeaver/cloudbeaver:25.2.0` |
+| **nginx** | Website3.0 (Frontend)   | 80  | Build desde `./Website3.0` |
+| **fastapi** | Atlas (Backend) | 8000 | Build desde `./Atlas`     |
+| **postgres** | PostgreSQL (BBDD)  | 5432   | `postgres:16.10-alpine`   |
+| **dbeaver** | CloudBeaver (Gestor de BBDD)| 8978 | `dbeaver/cloudbeaver:25.2.0` |
 
-## Requisitos previos
+### Variables de entorno
 
-- [Docker](https://docs.docker.com/get-docker/) y [Docker Compose](https://docs.docker.com/compose/install/)
-- Archivo `.env` en la raíz del proyecto (ver sección [Variables de entorno](#variables-de-entorno))
-
-## Variables de entorno
-
-Copia o crea un `.env` en la raíz del proyecto. Ejemplo:
+Aparte de las variables de entorno definidas en el archivo .env.example de cada repositorio, se tienen que definir las siguientes variables de entorno para el correcto funcionamiento de la aplicación:
 
 ```env
 # DBeaver / CloudBeaver
-DBEAVER_SERVER_NAME=atlas
-DBEAVER_ADMIN_NAME=admin
-DBEAVER_ADMIN_PASSWORD=admin
+DBEAVER_SERVER_NAME="[nombre_del_servidor]"
+DBEAVER_ADMIN_NAME="[nombre_del_administrador]"
+DBEAVER_ADMIN_PASSWORD="[contraseña_del_administrador]"
 
 # PostgreSQL
-POSTGRES_PASSWORD=postgres
-POSTGRES_USER=postgres
-POSTGRES_DB=atlas
+POSTGRES_PASSWORD="[contraseña_de_la_base_de_datos]"
+POSTGRES_USER="[nombre_del_usuario]"
+POSTGRES_DB="[nombre_de_la_base_de_datos]"
 
 # Zona horaria (común a todos los servicios)
-TZ=Europe/Madrid
+TZ="[zona_horaria]"
 
 # Frontend: URL base de la API (usada en build del frontend)
-VITE_API_BASE_URL=http://localhost:8000
+VITE_API_BASE_URL="http://[ip_del_servidor]:[puerto_de_la_api]"
 ```
 
-- **POSTGRES_***: credenciales y nombre de la base de datos usada por Atlas.
-- **DBEAVER_***: usuario y contraseña de administrador de CloudBeaver.
-- **VITE_API_BASE_URL**: URL a la que el frontend llama para la API (importante en build; por defecto `http://localhost:8000`).
+### Configuraciones de la máquina virtual en GCP
 
-## Uso básico
+![Configuración de la VM](/images/VM-data.png)
 
-Desde la raíz del proyecto (donde está `docker-compose.yml`):
+*Figura 1. Detalles de la máquina virtual utilizada como entorno de despliegue en GCP.*
 
-```bash
-# Construir y levantar todos los servicios
-docker compose up -d --build
+También se muestran las versiones instaladas de docker y docker compose en el servidor, que se ha obtenido mediante el comando `docker version` y `docker compose version`.
 
-# Ver logs (todos o de un servicio)
-docker compose logs -f
-docker compose logs -f fastapi
+![Versiones de docker y docker compose](/images/dockers-version.png)
 
-# Parar todos los servicios
-docker compose down
+*Figura 2. Versiones de docker y docker compose en el servidor.*
 
-# Parar y eliminar volúmenes (¡borra datos de Postgres y CloudBeaver!)
-docker compose down -v
-```
+Por último, se  la estructura de las carpetas en el servidor, donde se encuentra el código de los repositorios Website3.0 y Atlas, la ddbb, los datos(data: pdf y jsons extraidos) y la variables de entorno definidas en el archivo .env.
 
-## URLs de acceso
+![Estructura del entorno de producción](/images/ls-server.png)
 
-Tras `docker compose up -d`:
+*Figura 3. Estructura de las carpetas en el servidor.*
 
-| Aplicación   | URL                    |
-|-------------|------------------------|
-| Frontend    | http://localhost       |
-| API (Atlas) | http://localhost:8000  |
-| CloudBeaver | http://localhost:8978  |
+Se muestra por último un extracto del comando docker compose ps -a, que se ha obtenido mediante el comando `docker compose ps -a`.
 
-PostgreSQL queda expuesto en `localhost:5432` para clientes externos (por ejemplo, DBeaver desktop) si lo necesitas.
+![Extracto del comando docker compose ps -a](/images/docke-ps-command.png)
 
-## Volúmenes y persistencia
+*Figura 4. Extracto del comando docker compose ps -a.*
 
-Los datos se guardan en carpetas locales para que sobrevivan a `docker compose down` (sin `-v`):
+En la figura 4 se puede ver que los contenedores están en estado **Up (healthy)**, lo que significa que están funcionando correctamente. No esta levantado el contenedor **dbeaver**, ya que, no es necesario para el correcto funcionamiento de la aplicación, solo para verificación de errores en la ddbb.
 
-| Servicio   | Ruta local                         | Contenido                    |
-|-----------|------------------------------------|------------------------------|
-| **postgres** | `./ddbb/postgresql`             | Datos de PostgreSQL          |
-| **dbeaver**  | `./ddbb/cloudbeaver/workspace` | Workspace de CloudBeaver     |
-| **fastapi**  | `./data`                        | Datos de la aplicación Atlas |
+### URL de acceso a la aplicación
 
-Conviene tener `./ddbb` y `./data` en `.gitignore` si no quieres versionar datos ni configuraciones locales de BD.
+La URL de acceso a la aplicación es **http://34.140.134.1/**, que se puede ver en la figura 5.
 
-## Orden de arranque y dependencias
+![Vista de inicio de la aplicación](/images/home-fasai.png)
+*Figura 5. Vista de inicio de la aplicación.*
 
-- **postgres**: no depende de nadie; arranca primero.
-- **fastapi**: `depends_on: postgres`; espera a que Postgres esté disponible.
-- **dbeaver**: `depends_on: postgres`; idem.
-- **nginx**: puede arrancar en paralelo; el frontend llama a la API por `VITE_API_BASE_URL`.
+![Vista de analisis de archivo en la aplicación](/images/analysis-fasai.png)
+*Figura 6. Vista de analisis de archivos en la aplicación.*
+  
+> Como se ve en la imagen 5, la URL de acceso a la aplicación no es segura, ya que, no se ha configurado el certificado SSL, por lo que, se debe acceder a la aplicación mediante http en lugar de https. Esta configuración se realizará más adelante en el proyecto. Ya que se debe comprar el dominio fas-agent.com y configurar el certificado SSL en el servidor (nginx) asociado a este dominio.
 
-Postgres incluye un **healthcheck** (`pg_isready`) cada 5 s; los demás servicios pueden usarlo implícitamente al depender de `postgres`.
+## Video de demostración
 
-## Comandos útiles
+En la carpeta **videos** de este repositorio se encuentra el video de demostración de la funcionalidad principal de la aplicación puesta en producción, que es la extracción, simplificación y clasificación de archivos. Es el mismo video que en la sección **View Our Agent** del home page de la aplicación.
 
-```bash
-# Reconstruir solo un servicio (por ejemplo tras cambiar código)
-docker compose up -d --build fastapi
-docker compose up -d --build nginx
+![Video de demostración](/videos/fas-agent-demostration.mp4)
+*Figura 7. Video de demostración.*
 
-# Entrar al contenedor de la API
-docker compose exec fastapi sh
+## Visualización del resultado de un protocolo extraido
 
-# Entrar a Postgres con psql
-docker compose exec postgres psql -U postgres -d atlas
+En la carpeta **data** de Atlas se encuentra el resultado de la extracción, simplificación y clasificación de archivos, y ya que esta parte no se muestra a los usuarios de la aplicación, se ha incluido una imagen de una extracción de un protocolo Geneplus 1021:
 
-# Ver estado de los contenedores
-docker compose ps
-```
+![Protocolo Geneplus 1021](/images/protocol-part1.png)
+*Figura 8. Protocolo Geneplus 1021 parte 1.*
 
-## Notas
+![Protocolo Geneplus 1021](/images/protocol-part2.png)
+*Figura 9. Protocolo Geneplus 1021 parte 2.*
 
-- **Zona horaria**: Todos los servicios usan `TZ` del `.env` (p. ej. `Europe/Madrid`).
-- **Frontend y API**: Si cambias `VITE_API_BASE_URL`, hay que volver a construir la imagen del frontend: `docker compose build --no-cache nginx` y luego `docker compose up -d nginx`.
-- **CloudBeaver**: La primera vez, entra en http://localhost:8978 y configura el workspace; los datos quedarán en `./ddbb/cloudbeaver/workspace`.
+
+## Conclusión
+
+En este documento se ha presentado el proyecto asociado al TFM en Desarrollo con Inteligencia Artificial de la escuela Big School.
+
+Se ha explicado el objetivo del proyecto, el alcance del mismo, las decisiones técnicas, los servicios desplegados en producción, las variables de entorno, las configuraciones de la máquina virtual en GCP, la URL de acceso a la aplicación, el video de demostración, la visualización del resultado de la extracción, simplificación y clasificación de un protocolo y la conclusión.
+
+Se ha proporcionado evidencias de la correcta implementación y funcionamiento de la aplicación en producción, que se puede verificar accediendo a la URL de acceso a la aplicación.
+
+Agradecimientos a la escuela Big School por haber proporcionado los conocimientos necesarios para el desarrollo de este proyecto.
