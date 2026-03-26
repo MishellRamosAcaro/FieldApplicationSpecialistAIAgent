@@ -2,9 +2,26 @@
   <img src="images/logo.png" alt="FAS AI Agent Logo" width="200" />
 </p>
 
-# SaaS - Field Application Specialist AI Agent
+# Field Application Specialist AI Agent
 
 En este README.md se presenta el proyecto asociado al Trabajo de Fin del Máster (TFM) en Desarrollo con Inteligencia Artificial de la escuela Big School.
+
+El objetivo de este proyecto es crear un Field Application Specialist AI Agent que pueda apoyar a los Field Application Specialists (FAS) en su trabajo, ayudándoles a resolver los problemas que se les planteen sobre los documentos de los sistemas que utilizan. Se ha desarrollado aprendiendo y aplicando distintos lenguajes de programación, frameworks, diseños, arquitecturas y estructuras que, en conjunto, forman el agente de inteligencia artificial.
+
+La pregunta que seguramente se plantean es: **¿Qué hace un Field Application Specialist (FAS)?**
+
+Un **Field Application Specialist (FAS)** es un profesional que se encarga de la aplicación de soluciones técnicas. Estas soluciones técnicas comprenden:
+
+- La **preparación y puesta a punto de los sistemas**.  
+- El **entrenamiento del personal** para la correcta manipulación de los sistemas.  
+- El **soporte técnico**, tanto *in situ* como remoto, para **troubleshooting**.  
+- La **garantía de satisfacción del cliente** mediante el correcto funcionamiento de los sistemas.
+
+Es importante aclarar que el proyecto se centra en **entrenar nuestro Field Application Specialist AI Agent en el ámbito de Life Science**, que engloban disciplinas como Biología, Biotecnología, Bioquímica, Microbiología etc, para que pueda ayudar a los FAS en su trabajo.
+
+Se establece como un SaaS (Software as a Service) porque es una aplicación web que se puede acceder desde cualquier dispositivo con conexión a internet y que se puede utilizar sin necesidad de instalar nada en el dispositivo.
+
+## Repositorios de código
 
 Este proyecto se compone de dos repositorios:
    - [Website3.0](https://github.com/mishellramos/Website3.0)
@@ -17,19 +34,6 @@ En cada uno de los mismos se encuentra un fichero README.md que incluye la docum
    - Información sobre su instalación y ejecución.
    - Estructura del proyecto.
    - Funcionalidades principales.
-
-Este proyecto se ha desarrollado aprendiendo y aplicando distintas tecnologías, lenguajes de programación, frameworks, diseños, arquitecturas y estructuras que, en conjunto, forman el **SaaS Field Application Specialist AI Agent**.
-
-La pregunta que seguramente se plantean es: **¿Qué hace un Field Application Specialist (FAS)?**
-
-Un **Field Application Specialist (FAS)** es un profesional que se encarga de la aplicación de soluciones técnicas *in situ*. Estas soluciones técnicas comprenden:
-
-- La **preparación y puesta a punto de los sistemas**.  
-- El **entrenamiento del personal** para la correcta manipulación de los sistemas.  
-- El **soporte técnico**, tanto *in situ* como remoto, para **troubleshooting**.  
-- La **garantía de satisfacción del cliente** mediante el correcto funcionamiento de los sistemas.
-
-El área en la que se enfoca nuestro proyecto es **entrenar nuestro Field Application Specialist AI Agent en el ámbito de Life Science**, que engloban disciplinas como Biología, Biotecnología, Bioquímica, Microbiología etc.
 
 ---
 
@@ -113,6 +117,15 @@ VITE_API_BASE_URL="http://[ip_del_servidor]:[puerto_de_la_api]"
 ```
 
 ### Configuraciones de la máquina virtual en GCP
+A continuación se muestran las configuraciones de la máquina virtual en GCP, que se han realizado con e objetivo de facilitar el despliegue de la aplicación en producción.
+
+Se ha creado una máquina virtual con las siguientes configuraciones:
+
+- Sistema operativo: Ubuntu 24.04 LTS
+- Tipo de máquina: e2-micro
+- Zona horaria: Europe/Madrid
+- Disco: 10GB
+- Firewall: Reglas de entrada y salida
 
 ![Configuración de la VM](/images/VM-data.png)
 
@@ -124,7 +137,7 @@ También se muestran las versiones instaladas de docker y docker compose en el s
 
 *Figura 2. Versiones de docker y docker compose en el servidor.*
 
-Por último, se  la estructura de las carpetas en el servidor, donde se encuentra el código de los repositorios Website3.0 y Atlas, la ddbb, los datos(data: pdf y jsons extraidos) y la variables de entorno definidas en el archivo .env.
+Por último, se muestra la estructura de las carpetas en el servidor, donde se encuentra el código de los repositorios Website3.0 y Atlas, la ddbb, los datos(data: pdf y jsons extraidos) y la variables de entorno definidas en el archivo .env.
 
 ![Estructura del entorno de producción](/images/ls-server.png)
 
@@ -152,10 +165,15 @@ La URL de acceso a la aplicación es **http://34.140.134.1/**, que se puede ver 
 
 ## Video de demostración
 
-En la carpeta **videos** de este repositorio se encuentra el video de demostración de la funcionalidad principal de la aplicación puesta en producción, que es la extracción, simplificación y clasificación de archivos. Es el mismo video que en la sección **View Our Agent** del home page de la aplicación.
+En la carpeta **videos** de este repositorio se encuentra el video de demostración de la funcionalidad principal de la aplicación puesta en producción, que es la extracción, simplificación y clasificación de archivos. Es el mismo video que en la sección **View Our Agent** del home page de la aplicación. 
+
+Se tiene que descargar el video ya que desde Github no se puede verlo. También estará presente en la slides de la presentación del TFM.
 
 ![Video de demostración](/videos/fas-agent-demostration.mp4)
 *Figura 7. Video de demostración.*
+
+También se puede ver el video en YouTube:
+[Video de demostración](https://youtu.be/3s490JfwWpo)
 
 ## Visualización del resultado de un protocolo extraido
 
@@ -167,6 +185,7 @@ En la carpeta **data** de Atlas se encuentra el resultado de la extracción, sim
 ![Protocolo Geneplus 1021](/images/protocol-part2.png)
 *Figura 9. Protocolo Geneplus 1021 parte 2.*
 
+Como se puede ver en la imagen 8, se ha extraido la información de cabercera, se ha simplificado y se ha clasificado en secciones y se han obtenido las keywords de cada sección.
 
 ## Conclusión
 
