@@ -24,8 +24,8 @@ Se establece como un SaaS (Software as a Service) porque es una aplicación web 
 ## Repositorios de código
 
 Este proyecto se compone de dos repositorios:
-   - [Website3.0](https://github.com/mishellramos/Website3.0)
-   - [Atlas](https://github.com/mishellramos/Atlas)
+   - [Website3.0](https://github.com/MishellRamosAcaro/Website3.0)
+   - [Atlas](https://github.com/MishellRamosAcaro/Atlas)
 
 En cada uno de los mismos se encuentra un fichero README.md que incluye la documentación completa y detallada con todos los puntos de la memoria del TFM que desde la escuela nos han propuesto.
 
