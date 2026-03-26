@@ -167,9 +167,10 @@ La URL de acceso a la aplicación es **http://34.140.134.1/**, que se puede ver 
 
 En la carpeta **videos** de este repositorio se encuentra el video de demostración de la funcionalidad principal de la aplicación puesta en producción, que es la extracción, simplificación y clasificación de archivos. Es el mismo video que en la sección **View Our Agent** del home page de la aplicación. 
 
-Se tiene que descargar el video ya que desde Github no se puede verlo. También estará presente en la slides de la presentación del TFM.
+Se tiene que descargar el video ya que desde Github no se puede verlo.
 
 ![Video de demostración](/videos/fas-agent-demostration.mp4)
+
 *Figura 7. Video de demostración.*
 
 También se puede ver el video en YouTube:
